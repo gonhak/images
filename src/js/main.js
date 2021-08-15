@@ -2,6 +2,7 @@ const sliderBox = document.querySelector('.slider__box');
 const leftBtn = document.querySelector('.slider__left');
 const rightBtn = document.querySelector('.slider__right');
 const carouselImages = document.querySelectorAll('.slider__box__img');
+const carouselPoints = document.querySelectorAll('.slider__dotes__point');
 
 const carouselWidth = window.innerWidth / 2;
 const carouselSpeed = 3000;
@@ -13,7 +14,7 @@ const handleCarousel = () => {
     changeImage();
 };
 
-let startCarousel = setInterval(handleCarousel, carouselSpeed);
+// let startCarousel = setInterval(handleCarousel, carouselSpeed);
 
 const changeImage = () => {
     if(index > carouselImages.length - 1){
@@ -27,18 +28,26 @@ const changeImage = () => {
 
 const handleRightArrow =  () => {
     index++
-    resetInterval();
+    changeImage();
+    carouselPoints[index].classList.toggle('slider__dotes__point--active');
+    carouselPoints[index - 1].classList.remove('slider__dotes__point--active');
+    clearInterval(startCarousel);
+    startCarousel = setInterval(handleCarousel, carouselSpeed);
 };
 
 const handleLeftArrow =  () => {
     index--
-    resetInterval();
+    changeImage();
+    carouselPoints[index].classList.toggle('slider__dotes__point--active');
+    carouselPoints[index + 1].classList.remove('slider__dotes__point--active');
+    clearInterval(startCarousel);
+    startCarousel = setInterval(handleCarousel, carouselSpeed);
 };
 
 const resetInterval = () => {
     changeImage();
-    clearInterval(startCarousel);
-    startCarousel = setInterval(handleCarousel, carouselSpeed);
+    // clearInterval(startCarousel);
+    // startCarousel = setInterval(handleCarousel, carouselSpeed);
 };
 
 rightBtn.addEventListener('click', handleRightArrow);
